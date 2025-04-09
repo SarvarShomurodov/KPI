@@ -7,7 +7,7 @@
             <h2>Foydalanuvchi Tafsilotlari</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary mb-2" href="{{ route('users.index') }}">&larr; Orqaga</a>
+            <a class="btn btn-primary mb-2" href="{{ route('admin.users.index') }}">&larr; Orqaga</a>
         </div>
     </div>
 </div>

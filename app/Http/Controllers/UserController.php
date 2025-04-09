@@ -56,7 +56,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->roles);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                 ->withSuccess('New user is added successfully.');
     }
 
@@ -125,7 +125,7 @@ class UserController extends Controller
 
         $user->syncRoles([]);
         $user->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                 ->withSuccess('User is deleted successfully.');
     }
 }

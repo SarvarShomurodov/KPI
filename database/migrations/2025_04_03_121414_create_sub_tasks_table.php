@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('min');
             $table->integer('max');
             $table->timestamps();
-
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });
     }

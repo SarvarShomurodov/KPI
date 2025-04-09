@@ -4,11 +4,11 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Projectlarni qo'shish</h2>
+            <h2>TaskAssignlarni qo'shish</h2>
         </div>
         <div class="pull-right">
-          @can('create-project')
-            <a class="btn btn-primary mb-2" href="{{ route('admin.projects.create') }}">Project qo'shish</a>
+          @can('create-taskassign')
+            <a class="btn btn-primary mb-2" href="{{ route('admin.task_assignments.create') }}">TaskAssign qo'shish</a>
           @endcan
         </div>
     </div>
@@ -25,27 +25,32 @@
             <thead>
                 <tr>
                 <th scope="col">№</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
+                <th scope="col">Vazifalar</th>
+                <th scope="col">Baxo</th>
+                <th scope="col">Sana</th>
+                <th scope="col">Comment</th>
                 <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($projects as $project)
+                @forelse ($assignments as $assignment)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->description }}</td>
+                    <td>{{ $assignment->subtask->title }}</td>
+                    <td>{{ $assignment->rating }}</td>
+                    {{-- <td>{{ $assignment->rating }}</td> --}}
+                    <td>{{ $assignment->addDate }}</td>
+                    <td>{{ $assignment->comment }}</td>
                     <td>
-                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="post">
+                        <form action="{{ route('admin.task_assignments.destroy', $assignment->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
-                            @can('edit-project')
-                                <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @can('edit-subtask')
+                                <a href="{{ route('admin.task_assignments.edit', $assignment->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endcan
 
-                            @can('delete-project')
+                            @can('delete-subtask')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete this project?');"><i class="bi bi-trash"></i> Delete</button>
                             @endcan
                         </form>
@@ -60,7 +65,7 @@
                 @endforelse
             </tbody>
             </table>
-        <div class="table-responsive">
-    </div>
+        {{-- <div class="table-responsive">
+    </div> --}}
 </div>
 @endsection

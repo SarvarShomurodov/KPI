@@ -9,15 +9,16 @@ class TaskAssignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['task_id', 'user_id', 'rating', 'comment'];
+    protected $fillable = ['subtask_id', 'user_id', 'rating', 'comment', 'addDate'];
 
-    public function task()
+    public function subtask()
     {
-        return $this->belongsTo(Task::class, 'task_id');
+        return $this->belongsTo(SubTask::class, 'subtask_id')->with('task');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    
 }

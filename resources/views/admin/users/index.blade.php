@@ -8,7 +8,7 @@
       </div>
       <div class="pull-right">
         @can('create-user')
-          <a class="btn btn-primary mb-2" href="{{ route('users.create') }}">User qo'shish</a>
+          <a class="btn btn-primary mb-2" href="{{ route('admin.users.create') }}">User qo'shish</a>
         @endcan
       </div>
   </div>
@@ -21,7 +21,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered" id="myTable">
                 <thead>
                     <tr>
                     <th scope="col">№</th>
@@ -44,19 +44,19 @@
                             @endforelse
                         </td>
                         <td>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
     
-                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning"><i class="bi bi-eye"></i> Show</a>
+                                {{-- <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning"><i class="bi bi-eye"></i> Show</a> --}}
     
                                 @if (in_array('Super Admin', $user->getRoleNames()->toArray() ?? []) )
                                     @if (Auth::user()->hasRole('Super Admin'))
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                                     @endif
                                 @else
                                     @can('edit-user')
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>   
                                     @endcan
     
                                     @can('delete-user')

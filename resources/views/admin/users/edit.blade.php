@@ -5,7 +5,7 @@
     <div class="col-lg-12 margin-tb">
         <div class="d-flex justify-content-between align-items-center">
             <h2>Foydalanuvchini tahrirlash</h2>
-            <a class="btn btn-secondary" href="{{ route('users.index') }}">&larr; Orqaga</a>
+            <a class="btn btn-secondary" href="{{ route('admin.users.index') }}">&larr; Orqaga</a>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="col-md-4">
     <div class="card shadow-sm">
         <div class="card-body">
-            <form action="{{ route('users.update', $user->id) }}" method="POST">
+            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 

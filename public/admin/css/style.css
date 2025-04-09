@@ -20425,6 +20425,41 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
     display: none !important;
   }
 }
+#myTable, #myTable th, #myTable td {
+
+  background-image: linear-gradient(to bottom, #dee2e6 1.25px, transparent 0.2px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+#myTable2, #myTable2 th, #myTable2 td {
+
+  background-image: linear-gradient(to bottom, #dee2e6 1.25px, transparent 0.2px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.task-card {
+  border: 1px solid #8f8fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #4d4de6;
+  transition: all 0.3s ease;
+}
+.task-card:hover {
+  background-color: #f0f4ff;
+  box-shadow: 0 4px 10px rgba(77, 77, 230, 0.1);
+}
+.task-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+.task-description {
+  font-size: 14px;
+  color: #777;
+}
+.task-title a {
+  text-decoration: none;
+}
 /*-------------------------------------------------------------------*/
 /* === Template mixins === */
 /* Miscellaneous Mixins */

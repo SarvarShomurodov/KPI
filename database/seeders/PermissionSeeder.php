@@ -20,9 +20,22 @@ class PermissionSeeder extends Seeder
             'create-user',
             'edit-user',
             'delete-user',
+            'view-project',
             'create-project',
             'edit-project',
-            'delete-project'
+            'delete-project',
+            'view-task',
+            'create-task',
+            'edit-task',
+            'delete-task',
+            'view-subtask',
+            'create-subtask',
+            'edit-subtask',
+            'delete-subtask',
+            'view-taskassign',
+            'create-taskassign',
+            'edit-taskassign',
+            'delete-taskassign',
          ];
  
           // Looping and Inserting Array's Permissions into Permission Table

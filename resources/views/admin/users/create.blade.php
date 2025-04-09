@@ -8,7 +8,7 @@
         </div>
         <div class="pull-right">
           @can('create-user')
-            <a class="btn btn-primary mb-2" href="{{ route('users.index') }}">&larr; Orqaga</a>
+            <a class="btn btn-primary mb-2" href="{{ route('admin.users.index') }}">&larr; Orqaga</a>
           @endcan
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="col-md-4">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form action="{{ route('users.store') }}" method="post">
+                <form action="{{ route('admin.users.store') }}" method="post">
                     @csrf
 
                      {{-- First Name --}}

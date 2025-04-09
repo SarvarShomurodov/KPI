@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('task_assignments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id');
+            // $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('subtask_id');            
             $table->unsignedBigInteger('user_id');
             $table->integer('rating');
             $table->text('comment')->nullable();
+            $table->date('addDate');
             $table->timestamps();
-
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            // $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->foreign('subtask_id')->references('id')->on('sub_tasks')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

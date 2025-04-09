@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function __construct()
     {
        $this->middleware('auth');
-       $this->middleware('permission:create-project|edit-project|delete-project', ['only' => ['index','show']]);
+       $this->middleware('permission:view-project', ['only' => ['index','show']]);
        $this->middleware('permission:create-project', ['only' => ['create','store']]);
        $this->middleware('permission:edit-project', ['only' => ['edit','update']]);
        $this->middleware('permission:delete-project', ['only' => ['destroy']]);
@@ -28,7 +28,7 @@ class ProjectController extends Controller
     public function index(): View
     {
         return view('admin.projects.index', [
-            'projects' => Project::latest()->paginate(3)
+            'projects' => Project::all()
         ]);
     }
 

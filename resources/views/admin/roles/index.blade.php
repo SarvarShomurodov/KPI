@@ -9,7 +9,7 @@
             </div>
             <div class="pull-right">
                 @can('create-role')
-                <a class="btn btn-primary mb-2" href="{{ route('roles.create') }}">Role qo'shish</a>
+                <a class="btn btn-primary mb-2" href="{{ route('admin.roles.create') }}">Role qo'shish</a>
               @endcan
             </div>
         </div>
@@ -20,10 +20,10 @@
           </div>
       @endif
     <div class="card-body">
-        <table class="table">
+        <table class="table table-bordered" id="myTable">
             <thead>
                 <tr>
-                <th scope="col">S#</th>
+                <th scope="col">№</th>
                 <th scope="col">Name</th>
                 <th scope="col" style="width: 250px;">Action</th>
                 </tr>
@@ -34,15 +34,15 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $role->name }}</td>
                     <td>
-                        <form action="{{ route('roles.destroy', $role->id) }}" method="post">
+                        <form action="{{ route('admin.roles.destroy', $role->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
-                            <a href="{{ route('roles.show', $role->id) }}" class="btn btn-warning"><i class="bi bi-eye"></i> Show</a>
+                            <a href="{{ route('admin.roles.show', $role->id) }}" class="btn btn-warning"><i class="bi bi-eye"></i> Show</a>
 
                             @if ($role->name!='Super Admin')
                                 @can('edit-role')
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>   
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>   
                                 @endcan
 
                                 @can('delete-role')

@@ -21,15 +21,29 @@ class RoleSeeder extends Seeder
             'create-user',
             'edit-user',
             'delete-user',
+            'view-project',
             'create-project',
             'edit-project',
-            'delete-project'
+            'delete-project',
+            'view-task',
+            'create-task',
+            'edit-task',
+            'delete-task',
+            'view-subtask',
+            'create-subtask',
+            'edit-subtask',
+            'delete-subtask',
+            'view-taskassign',
+            'create-taskassign',
+            'edit-taskassign',
+            'delete-taskassign',
         ]);
 
         $productManager->givePermissionTo([
-            'create-project',
-            'edit-project',
-            'delete-project'
+            'view-project',
+            'view-task',
+            'view-subtask',
+            'view-taskassign'
         ]);
     }
 }

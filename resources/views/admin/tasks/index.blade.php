@@ -4,11 +4,11 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Projectlarni qo'shish</h2>
+            <h2>Tasklarni qo'shish</h2>
         </div>
         <div class="pull-right">
-          @can('create-project')
-            <a class="btn btn-primary mb-2" href="{{ route('admin.projects.create') }}">Project qo'shish</a>
+          @can('create-task')
+            <a class="btn btn-primary mb-2" href="{{ route('admin.tasks.create') }}">Task qo'shish</a>
           @endcan
         </div>
     </div>
@@ -31,21 +31,21 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($projects as $project)
+                @forelse ($tasks as $task)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->description }}</td>
+                    <td>{{ $task->taskName }}</td>
+                    <td>{{ $task->description }}</td>
                     <td>
-                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="post">
+                        <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
-                            @can('edit-project')
-                                <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @can('edit-task')
+                                <a href="{{ route('admin.tasks.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endcan
 
-                            @can('delete-project')
+                            @can('delete-task')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to delete this project?');"><i class="bi bi-trash"></i> Delete</button>
                             @endcan
                         </form>
@@ -60,7 +60,7 @@
                 @endforelse
             </tbody>
             </table>
-        <div class="table-responsive">
-    </div>
+        {{-- <div class="table-responsive">
+    </div> --}}
 </div>
 @endsection
