@@ -31,7 +31,7 @@ class LoginController extends Controller
         if (auth()->user()->hasRole('Super Admin')) {
             return '/admin/users';
         } elseif (auth()->user()->hasRole('Admin')) {
-            return '/admin/users';
+            return '/grafik';
         } elseif (auth()->user()->hasRole('User')) {
             return '/user/projects';
         }

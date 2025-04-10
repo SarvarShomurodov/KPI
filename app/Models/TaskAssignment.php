@@ -11,6 +11,10 @@ class TaskAssignment extends Model
 
     protected $fillable = ['subtask_id', 'user_id', 'rating', 'comment', 'addDate'];
 
+    protected $casts = [
+        'rating' => 'float',
+    ];
+    
     public function subtask()
     {
         return $this->belongsTo(SubTask::class, 'subtask_id')->with('task');
@@ -20,5 +24,8 @@ class TaskAssignment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+    public function getTaskAttribute()
+    {
+        return $this->subtask ? $this->subtask->task : null;
+    }
 }

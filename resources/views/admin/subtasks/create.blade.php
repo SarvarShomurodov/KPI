@@ -57,11 +57,12 @@
 
                 <div class="mb-3">
                     <label for="min" class="form-label">Min</label>
-                    <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" name="min" value="{{ old('min') }}">
+                    <input type="number" class="form-control @error('min') is-invalid @enderror" id="min" name="min" value="{{ old('min') }}" step="any">
                     @error('min')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                
 
                 <div class="mb-3">
                     <label for="max" class="form-label">Max</label>

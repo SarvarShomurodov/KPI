@@ -39,7 +39,12 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->prefix('admin')->as('admi
 });
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/tasks', [ClientTaskController::class, 'index'])->name('tasks.index');
+    Route::get('/task/swod', [ClientTaskController::class, 'swod'])->name('task.swod');
+    Route::get('/grafik', [ClientTaskController::class, 'grafik'])->name('grafik');
+    Route::get('/task-assignments/{user}', [ClientTaskController::class, 'showAssign'])->name('client-task.show');
+    Route::get('/task-assignments/{user}/task/{task}', [ClientTaskController::class, 'taskDetails'])->name('client-task.task-details');
     Route::get('/tasks/{taskId}', [ClientTaskController::class, 'show'])->name('tasks.show');
     Route::get('/tasks/{taskId}/assign/{staffId}', [ClientTaskController::class, 'assignTask'])->name('tasks.assign');
     Route::post('/tasks/{taskId}/assign/{staffId}', [ClientTaskController::class, 'storeRating'])->name('tasks.storeRating');
+    
 });

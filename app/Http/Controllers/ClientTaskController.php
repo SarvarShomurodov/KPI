@@ -76,5 +76,141 @@ class ClientTaskController extends Controller
         return redirect()->route('tasks.assign', ['taskId' => $taskId, 'staffId' => $userId])
                      ->with('success', 'Baho muvaffaqiyatli saqlandi');
     }
+
+    public function swod(Request $request)
+    {
+        $from = $request->input('from_date');
+        $to = $request->input('to_date');
+
+        $tasks = Task::all();
+        $staffUsers = User::all();
+
+        $query = TaskAssignment::with('subtask.task');
+
+        if ($from && $to) {
+            $query->whereBetween('addDate', [$from, $to]);
+        }
+
+        $assignments = $query->get()
+            ->groupBy('user_id')
+            ->map(function ($assignments) {
+                return [
+                    'total_rating' => $assignments->sum('rating'),
+                    'tasks' => $assignments->map(function ($a) {
+                        return [
+                            'task_id' => $a->subtask->task->id ?? null,
+                            'task_name' => $a->subtask->task->taskName ?? null,
+                            'rating' => $a->rating,
+                        ];
+                    }),
+                ];
+            });
+
+        return view('client.swod.swod', compact('tasks', 'staffUsers', 'assignments', 'from', 'to'));
+    }
+
+
+    public function grafik(Request $request)
+    {
+        // Formdan kelgan filterlar
+        $from = $request->input('from_date');
+        $to = $request->input('to_date');
+        $position = $request->input('position');
     
+        // Default sanalar
+        $today = now()->format('Y-m-d');
+        $oneMonthAgo = now()->subMonth()->format('Y-m-d');
+    
+        // Barcha topshiriqlar (tasklar)
+        $tasks = Task::all();
+    
+        // Positionlar ro'yxati (dropdown uchun)
+        $positions = User::select('position')->distinct()->pluck('position');
+    
+        // Filtering: xodimlar ro'yxati
+        $staffUsers = User::when($position && $position !== 'all', function ($query) use ($position) {
+            $query->where('position', $position);
+        })->get();
+    
+        // KPI natijalari (TaskAssignment) – addDate va position bo'yicha filtering
+        $query = TaskAssignment::with('subtask.task', 'user');
+    
+        // Sana filtering
+        if ($from && $to) {
+            $query->whereBetween('addDate', [$from, $to]);
+        } elseif (!$from && !$to) {
+            // Default sanalar bo'lsa (hozirgi sanadan 1 oylik oraliq)
+            $query->whereBetween('addDate', [$oneMonthAgo, $today]);
+        }
+    
+        // Position filtering
+        if ($position && $position !== 'all') {
+            $query->whereHas('user', function ($q) use ($position) {
+                $q->where('position', $position);
+            });
+        }
+    
+        // Assignments ma'lumotlarini olish
+        $assignments = $query->get()
+            ->groupBy('user_id')
+            ->map(function ($assignments) {
+                return [
+                    'total_rating' => $assignments->sum('rating'),
+                    'tasks' => $assignments->map(function ($a) {
+                        return [
+                            'task_id' => $a->subtask->task->id ?? null,
+                            'task_name' => $a->subtask->task->taskName ?? null,
+                            'rating' => $a->rating,
+                        ];
+                    }),
+                ];
+            });
+    
+        // Bladega ma'lumotlarni yuborish
+        return view('client.swod.index', compact(
+            'tasks',
+            'staffUsers',
+            'assignments',
+            'positions',
+            'today',
+            'oneMonthAgo',
+            'from',       // from_date qiymatini yuborish
+            'to' 
+        ));
+    }
+
+    public function showAssign($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $assignments = TaskAssignment::with('subtask.task')
+            ->where('user_id', $userId)
+            ->get();
+
+        return view('client.swod.show', compact('user', 'assignments'));
+    }
+
+    public function taskDetails($userId, $taskId, Request $request)
+    {
+        $user = User::findOrFail($userId);
+        $task = Task::findOrFail($taskId);
+    
+        $from = $request->input('from_date');
+        $to = $request->input('to_date');
+    
+        $query = TaskAssignment::with('subtask.task')
+            ->where('user_id', $userId)
+            ->whereHas('subtask', function ($q) use ($taskId) {
+                $q->where('task_id', $taskId);
+            });
+        
+        // Sana bo‘yicha filterlash (agar mavjud bo‘lsa)
+        if ($from && $to) {
+            $query->whereBetween('addDate', [$from, $to]);
+        }
+    
+        $assignments = $query->get();
+    
+        return view('client.swod.task-details', compact('user', 'task', 'assignments', 'from', 'to'));
+    }
 }

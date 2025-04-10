@@ -16,8 +16,8 @@ class Task extends Model
         return $this->hasMany(SubTask::class, 'task_id');
     }
 
-    public function taskAssignments()
-    {
-        return $this->hasMany(TaskAssignment::class, 'task_id');
-    }
+    // public function taskAssignments()
+    // {
+    //     return $this->hasMany(TaskAssignment::class, 'task_id');
+    // }
 }

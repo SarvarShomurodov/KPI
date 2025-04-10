@@ -56,13 +56,19 @@
       @endif
       @if(auth()->user() && auth()->user()->hasRole('Admin'))
       <li class="nav-item nav-category">Sahifalar</li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="mdi mdi-grid-large menu-icon"></i>
+        <li class="nav-item {{ Request::is('grafik*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('grafik') }}">
+            <i class="mdi mdi-chart-line menu-icon"></i>
             <span class="menu-title">Dashboard</span>
           </a>
         </li>
-        @canany(['create-subtask', 'edit-subtask', 'delete-subtask'])
+        <li class="nav-item {{ Request::is('task.swod*') ? 'active' : '' }}"> 
+          <a class="nav-link" href="{{ route('task.swod') }}">
+              <i class="menu-icon mdi mdi-database-search"></i>
+              <span class="menu-title">SWOD tahlil</span>
+          </a>
+        </li>
+        @canany(['create-task', 'edit-task', 'delete-task'])
           {{-- <li class="nav-item {{ Request::is('admin.task_assignments*') ? 'active' : '' }}"> 
             <a class="nav-link" href="{{ route('admin.task_assignments.index') }}">
                 <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -70,7 +76,7 @@
             </a>
           </li> --}}
           <li class="nav-item {{ Request::is('tasks*') ? 'active' : '' }}"> 
-            <a class="nav-link" href="{{ url('tasks') }}">
+            <a class="nav-link" href="{{ route('tasks.index') }}">
                 <i class="menu-icon mdi mdi-thumb-up"></i>
                 <span class="menu-title">KPI baholash</span>
             </a>

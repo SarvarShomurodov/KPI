@@ -24,9 +24,9 @@ class UpdateSubTaskRequest extends FormRequest
         return [
             'task_id' => 'required|exists:tasks,id', // Taskni tanlash shart, va u mavjud bo'lishi kerak
             'title' => 'required|string|max:255', // Title majburiy va maksimal uzunligi 255 bo'lishi kerak
-            'category' => 'required|string|max:255', // Category majburiy va maksimal uzunligi 255 bo'lishi kerak
-            'min' => 'required|integer|min:0', // Min qiymati integer va 0 yoki undan katta bo'lishi kerak
-            'max' => 'required|integer|min:0|gte:min',
+            'category' => 'nullable', // Category majburiy va maksimal uzunligi 255 bo'lishi kerak
+            'min' => 'required|numeric', // Min qiymati son bo'lishi kerak va 0 yoki undan katta bo'lishi kerak
+            'max' => 'required|numeric|gte:min', // Max qiymati son bo'lishi kerak, 0 yoki undan katta bo'lishi kerak,
         ];
     }
 }

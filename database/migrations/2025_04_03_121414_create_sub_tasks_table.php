@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('task_id');
             $table->string('title');
-            $table->string('category');
-            $table->integer('min');
-            $table->integer('max');
+            $table->string('category')->nullable();
+            $table->float('min', 8, 4);  // float: manfiy va ijobiy haqiqiy sonlar uchun
+            $table->float('max', 8, 4); ;
             $table->timestamps();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });

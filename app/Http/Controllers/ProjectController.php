@@ -46,7 +46,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request): RedirectResponse
     {
         Project::create($request->all());
-        return redirect()->route('projects.index')
+        return redirect()->route('admin.projects.index')
                 ->withSuccess('New Project is added successfully.');
     }
 
@@ -86,7 +86,7 @@ class ProjectController extends Controller
     public function destroy(Project $project): RedirectResponse
     {
         $project->delete();
-        return redirect()->route('projects.index')
+        return redirect()->route('admin.projects.index')
                 ->withSuccess('Project is deleted successfully.');
     }
 }

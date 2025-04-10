@@ -33,7 +33,8 @@
                         <input type="hidden" name="subtask_id" value="{{ $subtask->id }}">
                     </td>
                     <td>
-                        <input type="number" name="rate" class="form-control" placeholder="Ball" min="{{ $subtask->min }}" max="{{ $subtask->max }}" required>
+                        <input type="number" name="rate" class="form-control" placeholder="Ball" 
+                               min="{{ $subtask->min }}" max="{{ $subtask->max }}" step="0.01" required>
                     </td>
                     <td>
                         <input type="date" name="date" class="form-control" required>

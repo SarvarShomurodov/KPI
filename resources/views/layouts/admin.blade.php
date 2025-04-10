@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">
@@ -43,6 +44,7 @@
                     <div class="row">
                         <div class="col-sm-12 bg-white p-5">
                             @yield('content')
+                            @yield('scripts')
                         </div>
                     </div>
                 </div>
@@ -74,44 +76,45 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            paging: false,
-            lengthChange: false,
-            language: {
-                search: "Qidiruv:",
-                info: "_TOTAL_ ta yozuvdan _START_ dan _END_ gacha ko'rsatilmoqda",
-                zeroRecords: "Hech qanday mos yozuv topilmadi",
-            }
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    
+    
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                ordering: true,
+                order: [[0, 'asc']],
+                paging: false,
+                lengthChange: false,
+                language: {
+                    search: "Qidiruv:",
+                    info: "_TOTAL_ ta yozuvdan _START_ dan _END_ gacha ko'rsatilmoqda",
+                    zeroRecords: "Hech qanday mos yozuv topilmadi",
+                }
+            });
         });
-    });
-    $(document).ready(function() {
-        $('#myTable2').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            paging: false,
-            lengthChange: false,
-            language: {
-                search: "Qidiruv:",
-                info: "_TOTAL_ ta yozuvdan _START_ dan _END_ gacha ko'rsatilmoqda",
-                zeroRecords: "Hech qanday mos yozuv topilmadi",
-            },
-            dom: 'Bfrtip', // Buttonsni qo'shish uchun
-            buttons: [
-                'excel', 'pdf', 'print'
-            ]
+        $(document).ready(function() {
+            $('#myTable2').DataTable({
+                ordering: true,
+                order: [[0, 'asc']],
+                paging: false,
+                lengthChange: false,
+                language: {
+                    search: "Qidiruv:",
+                    info: "_TOTAL_ ta yozuvdan _START_ dan _END_ gacha ko'rsatilmoqda",
+                    zeroRecords: "Hech qanday mos yozuv topilmadi",
+                },
+                dom: 'Bfrtip', // Buttonsni qo'shish uchun
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>

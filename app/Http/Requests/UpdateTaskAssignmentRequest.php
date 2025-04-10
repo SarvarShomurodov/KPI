@@ -16,7 +16,7 @@ class UpdateTaskAssignmentRequest extends FormRequest
         return [
             'subtask_id' => 'required|exists:sub_tasks,id',
             'user_id' => 'required|exists:users,id',
-            'rating' => 'required|integer',
+            'rating' => 'required|numeric',
             'comment' => 'nullable|string',
             'addDate' => 'required|date',
         ];
