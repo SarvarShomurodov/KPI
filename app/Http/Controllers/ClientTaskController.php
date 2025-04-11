@@ -218,53 +218,33 @@ class ClientTaskController extends Controller
         $staffUsers = User::all();  // Xodimlar ro'yxatini olish
         return view('client.tasks.staff', compact('staffUsers'));
     }
+
     public function kpi($id)
-{
-    $user = User::findOrFail($id);
-
-    // Barcha foydalanuvchilar KPI larini oylab olib kelamiz, eng kattasini topamiz (maximum KPI)
-    $allAssignments = TaskAssignment::with('subtask.task')
-        ->get()
-        ->groupBy(function ($item) {
-            return Carbon::parse($item->addDate)->format('Y-m');
-        });
-
-    $monthlyMaxRatings = [];
-
-    foreach ($allAssignments as $month => $items) {
-        $monthlyMaxRatings[$month] = $items
-            ->groupBy('user_id')
-            ->map(fn($i) => $i->sum('rating'))
-            ->max();
+    {
+        $user = User::findOrFail($id);
+    
+        $assignments = TaskAssignment::with('subtask.task')
+            ->where('user_id', $id)
+            ->get()
+            ->groupBy(function ($item) {
+                return Carbon::parse($item->addDate)->translatedFormat('F Y'); // Masalan: Aprel 2025
+            })
+            ->map(function ($items) {
+                $totalRating = $items->sum('rating');
+    
+                // Maksimal ballni o‘sha oyning ichida eng ko‘p olgan foydalanuvchiga qarab topish mumkin
+                // Lekin hozircha oddiy qilib 100 dan baholaymiz
+                $maxRating = 100;
+    
+                $kpi = $maxRating > 0 ? round(($totalRating / $maxRating) * 100, 2) : 0;
+    
+                return [
+                    'total_rating' => $totalRating,
+                    'kpi' => $kpi,
+                ];
+            });
+    
+            return view('client.tasks.grafikstaff', compact('user', 'assignments'));
     }
-
-    // Faqat tanlangan user uchun KPI lar
-    $userAssignments = TaskAssignment::with('subtask.task')
-        ->where('user_id', $id)
-        ->get()
-        ->groupBy(function ($item) {
-            return Carbon::parse($item->addDate)->format('Y-m');
-        })
-        ->map(function ($items, $month) use ($monthlyMaxRatings) {
-            $total_rating = $items->sum('rating');
-            $bonus = 0;
-            $totalWithBonus = $total_rating + $bonus;
-            $maxTotalRating = $monthlyMaxRatings[$month] ?? 0;
-            $kpi = $maxTotalRating > 0 ? round(($totalWithBonus / $maxTotalRating) * 100, 2) : 0;
-
-            return [
-                'total_rating' => $total_rating,
-                'kpi' => $kpi,
-                'tasks' => $items->map(function ($a) {
-                    return [
-                        'task_id' => $a->subtask->task->id ?? null,
-                        'task_name' => $a->subtask->task->taskName ?? 'Nomaʼlum',
-                        'rating' => $a->rating,
-                    ];
-                }),
-            ];
-        });
-
-    return view('client.tasks.grafikstaff', compact('user', 'userAssignments'));
-}
+    
 }

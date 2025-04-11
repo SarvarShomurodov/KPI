@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -73,9 +74,36 @@ public function index(Request $request)
     ));
 }
 
-public function subtask(){
-    return view('client.view.dataset');
-}    
+public function subtask()
+{
+    $user = auth()->user();
+
+    if (!$user) {
+        return redirect()->route('login');
+    }
+
+    $assignments = TaskAssignment::with('subtask.task')
+        ->where('user_id', $user->id)
+        ->get();
+
+    // Guruhlash taskName bo‘yicha
+    $userAssignment = $assignments->groupBy(function ($item) {
+        return $item->subtask->task->taskName ?? 'Nomaʼlum';
+    });
+
+    // Har bir taskName uchun umumiy va o‘rtacha baholarni hisoblash
+    $taskStats = $userAssignment->map(function ($group) {
+        return [
+            'sum' => $group->sum('rating'),
+            'avg' => round($group->avg('rating'), 2),
+            'assignments' => $group,
+        ];
+    });
+
+    return view('client.view.dataset', compact('user', 'taskStats'));
+}
+
+
     
     
 

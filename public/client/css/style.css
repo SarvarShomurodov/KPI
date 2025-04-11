@@ -3,7 +3,115 @@ body {
     color: white;
     font-family: 'Arial', sans-serif;
 }
+.kpi-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282a3a;
+    border: 2px solid #45516b;
+    border-radius: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  .kpi-select-text {
+    color: white; /* default rang */
+    transition: color 0.3s;
+  }
+  
+  .kpi-select-text.active {
+    color: red; /* tanlanganda qizil */
+  }
+  .kpi-select-icon svg {
+    fill: white;
+    transition: transform 0.3s ease;
+  }
 
+  .rotate {
+    transform: rotate(180deg);
+  }
+
+  .kpi-dropdown {
+    display: none;
+    border: 2px solid #45516b;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 16px;
+    background-color: #282a3a;
+  }
+
+  .table-container {
+    display: none;
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+  }
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  /* Custom switch */
+  .switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .switch-label {
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #6c757d;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px; width: 20px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #4CAF50;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(24px);
+  }
 .navbar-custom {
     background-color: #1e1e2f;
 }
