@@ -1,0 +1,137 @@
+body {
+    background: linear-gradient(135deg, #1e1e2f, #2c2e3e);
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar-custom {
+    background-color: #1e1e2f;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fdfdfd;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #9ac6ff;
+}
+
+.sidebar {
+    background: #27293d;
+    padding: 20px 15px;
+    box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.4);
+    border-right: 2px solid #444;
+    min-height: 100vh;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px 0;
+    transition: 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #444;
+    transform: translateX(5px);
+}
+
+.sidebar h2 {
+    color: #9ac6ff;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.sidebar p {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.sidebar .form-select {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.sidebar .form-label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #9ac6ff;
+}
+
+.content {
+    padding: 30px;
+}
+
+.btn-outline-light {
+    border-color: #9ac6ff;
+    color: #9ac6ff;
+    transition: 0.3s ease;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light.active {
+    background-color: #9ac6ff;
+    color: white;
+}
+
+.card {
+    background-color: #2c2e3e !important;
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title i {
+    margin-right: 8px;
+    color: #9ac6ff;
+}
+
+hr {
+    border-top: 2px solid #9ac6ff;
+    width: 90%;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+    .sidebar {
+        position: relative;
+        height: auto;
+        border-right: none;
+        box-shadow: none;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .btn-outline-light {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .card h6,
+    .card p,
+    .card h4 {
+        font-size: 90%;
+    }
+
+    .card-title i {
+        font-size: 1rem;
+    }
+
+    .sidebar h2 {
+        font-size: 1.25rem;
+    }
+}

@@ -4,7 +4,7 @@
 <form method="GET" action="{{ route('grafik') }}" class="row  justify-content-start mb-5">
     
     <div class="col-12 col-md-2 mb-2"> <!-- mb-2 o'zgartirildi -->
-        <select name="position" class="form-select">
+        <select name="position" class="form-select text-black">
             <option value="all" {{ request('position') == 'all' ? 'selected' : '' }}>Hammasi</option>
             @foreach ($positions as $pos)
                 <option value="{{ $pos }}" {{ request('position') == $pos ? 'selected' : '' }}>{{ $pos }}</option>
@@ -29,9 +29,9 @@
 
 
 
-{{-- <h4 class="text-center mt-5 mb-4">
+<h4 class="text-center mt-5 mb-4">
     Xodimlarning {{ $from ? \Carbon\Carbon::parse($from)->format('d-m-Y') : \Carbon\Carbon::parse($oneMonthAgo)->format('d-m-Y') }}  dan {{ $to ? \Carbon\Carbon::parse($to)->format('d-m-Y') : \Carbon\Carbon::parse($today)->format('d-m-Y') }}  gacha ishlagan KPI natijalari
-</h4> --}}
+</h4>
 
     <!-- Filter Form -->
     

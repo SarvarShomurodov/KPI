@@ -67,13 +67,13 @@
                 <tr>
                     <td>{{ $i++ }}</td>
                     <td>
-                        <a href="{{ route('client-task.show', ['user' => $staffUser->id, 'from_date' => request('from_date'), 'to_date' => request('to_date')]) }}">
+                        <a style="text-decoration: none" href="{{ route('client-task.show', $staffUser->id) }}">
                             {{ $staffUser->firstName }} {{ $staffUser->lastName }}
                         </a>
                     </td>
                     @foreach ($tasks as $task)
                         <td>
-                            <a href="{{ route('client-task.task-details', [
+                            <a style="text-decoration: none" href="{{ route('client-task.task-details', [
                                 'user' => $staffUser->id,
                                 'task' => $task->id,
                                 'from_date' => request('from_date'),
