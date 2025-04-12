@@ -33,7 +33,7 @@ class LoginController extends Controller
         } elseif (auth()->user()->hasRole('Admin')) {
             return '/grafik';
         } elseif (auth()->user()->hasRole('User')) {
-            return '/sarvar';
+            return '/index';
         }
 
         return '/home';

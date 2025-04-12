@@ -21,9 +21,9 @@ use App\Http\Controllers\TaskAssignmentController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:User'])->group(function () {
     // Route::get('/', function () {
     //     return view('client.view.index');
     // });
-    Route::get('/', [ClientAllController::class, 'index'])->name('client.index');
+    Route::get('/index', [ClientAllController::class, 'index'])->name('client.index');
     Route::get('/subtask', [ClientAllController::class, 'subtask'])->name('client.subtask');
 
     
