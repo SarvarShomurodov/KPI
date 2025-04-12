@@ -51,11 +51,10 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/tasks/{taskId}/assign/{staffId}', [ClientTaskController::class, 'storeRating'])->name('tasks.storeRating');
 });
 Route::middleware(['auth', 'role:User'])->group(function () {
-    // Route::get('/', function () {
-    //     return view('client.view.index');
-    // });
     Route::get('/index', [ClientAllController::class, 'index'])->name('client.index');
     Route::get('/subtask', [ClientAllController::class, 'subtask'])->name('client.subtask');
-
-    
+    Route::get('/allsubtask', [ClientAllController::class, 'allsubtask'])->name('client.allsubtask');    
+    // Profilni tahrirlash
+    Route::get('/profile', [ClientAllController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [ClientAllController::class, 'updateProfile'])->name('profile.update');
 });

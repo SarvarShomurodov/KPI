@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h6 class="card-title"><i class="fas fa-chart-bar"></i> {{ $task['task_name'] }}</h6>
                         <p class="mb-0 ">BALL</p>
-                        <h4>{{ $task['total_rating'] }}</h4>
+                        <h4>{{ number_format($task['total_rating'], 2, '.', '')}}</h4>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <h6 class="card-title text-info"><i class="fas fa-award"></i> UMUMIY</h6>
                     <p class="mb-0">BALL</p>
-                    <h4>{{ $currentUserAssignment['total_rating'] }}</h4>
+                    <h4>{{ number_format($currentUserAssignment['total_rating'], 2, '.', '')  }}</h4>
                 </div>
             </div>
         </div>

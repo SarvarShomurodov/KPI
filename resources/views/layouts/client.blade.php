@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Design</title>
+    <title>IMRS KPI xodimlar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('client/css/style.css') }}">
@@ -31,6 +31,8 @@
     <!-- pdfmake (PDF export uchun) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -49,34 +51,44 @@
                  <a href="{{ route('client.subtask') }}"
                     class="btn btn-outline-light {{ request()->routeIs('client.subtask') ? 'active' : '' }}">
                      ALL DATA FOR EACH SUBTASK
-                 </a>                    <a href="#" class="btn btn-outline-light">REYTING</a>
-                    <a href="#" class="btn btn-outline-light">PROFIL MA'LUMOTLARI</a>
+                 </a> 
+                 <a href="{{ route('client.allsubtask') }}"
+                    class="btn btn-outline-light {{ request()->routeIs('client.allsubtask') ? 'active' : '' }}">
+                    REYTING
+                 </a>                   
+                 
+                 {{-- <a href="#" class="btn btn-outline-light"></a> --}}
+                 <a href="{{ route('profile.edit') }}"
+                    class="btn btn-outline-light {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
+                    PROFIL MA'LUMOTLARI
+                 </a> 
+                    {{-- <a href="{{ url('s') }}" class="btn btn-outline-light">PROFIL MA'LUMOTLARI</a> --}}
                 </div>
                 <hr />
                 @yield('content')
+                @yield('scripts')
             </main>
         </div>
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#myTable2').DataTable({
-                ordering: true,
-                order: [[0, 'asc']],
-                paging: false,
-                lengthChange: false,
-                language: {
-                    search: "Qidiruv:",
-                    // info: "_TOTAL_ ta yozuvdan _START_ dan _END_ gacha ko'rsatilmoqda",
-                    zeroRecords: "Hech qanday mos yozuv topilmadi",
-                },
-                dom: 'Bfrtip', // Buttonsni qo'shish uchun
-                buttons: [
-                    'excel', 'pdf', 'print'
-                ],
-                info: false
-            });
+     $(document).ready(function() {
+    $('table[id^="myTable_"]').each(function() {
+        $(this).DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            paging: false,
+            lengthChange: false,
+            language: {
+                search: "Qidiruv:",
+                zeroRecords: "Hech qanday mos yozuv topilmadi",
+            },
+            dom: 'Bfrtip',
+            buttons: ['excel', 'pdf', 'print'],
+            info: false
         });
+    });
+});
     </script>
 </body>
 

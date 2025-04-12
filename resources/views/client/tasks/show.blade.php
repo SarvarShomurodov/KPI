@@ -36,7 +36,7 @@
                     </td>
                     <td> {{ $staffUser->position }} </td>
                     <td> {{ $staffUser->phone }} </td>
-                    <td>{{ isset($ratings[$staffUser->id]) ? $ratings[$staffUser->id] . ',0' : '0,0' }}</td>
+                    <td>{{ isset($ratings[$staffUser->id]) ? $ratings[$staffUser->id] : '0,0' }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -3,6 +3,70 @@ body {
     color: white;
     font-family: 'Arial', sans-serif;
 }
+
+.card {
+  background-color: #003b46;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.block {
+  flex: 1 1 200px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.label {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.value {
+  color: white;
+  font-size: 16px;
+}
+
+.rating {
+  background-color: #8bc0ac;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.date {
+  background-color: #8bc0ac;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.izoh {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.icon-emoji {
+  font-size: 18px;
+}
 .kpi-container {
     display: flex;
     justify-content: space-between;
@@ -183,7 +247,7 @@ body {
 
 .btn-outline-light:hover,
 .btn-outline-light.active {
-    background-color: #9ac6ff;
+    background-color: #3186f4;
     color: white;
 }
 
