@@ -59,9 +59,10 @@
                         $taskRatings[$item['task_id']] = ($taskRatings[$item['task_id']] ?? 0) + $item['rating'];
                     }
 
-                    $bonus = 0;
+                    // Bonusni Bonus modelidan olish
+                    $bonus = \App\Models\Bonus::where('user_id', $staffUser->id)->sum('bonus');
                     $totalWithBonus = $userData['total_rating'] + $bonus;
-                    $kpi = $maxTotalRating > 0 ? round(($totalWithBonus / $maxTotalRating) * 100, 2) : 0;
+                    $kpi = $maxTotalRating > 0 ? round(min(($totalWithBonus / $maxTotalRating) * 100, 100), 2) : 0;
                 @endphp
 
                 <tr>

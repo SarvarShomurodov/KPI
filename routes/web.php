@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BonusController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SubTaskController;
 use App\Http\Controllers\ClientAllController;
@@ -35,7 +36,8 @@ Route::middleware(['auth', 'role:Super Admin|Admin'])->prefix('admin')->as('admi
         'projects' => ProjectController::class,
         'tasks' => TaskController::class,
         'subtasks' => SubTaskController::class,
-        'task_assignments'=> TaskAssignmentController::class
+        'task_assignments'=> TaskAssignmentController::class,
+        'bonuses'=> BonusController::class
     ]);
 });
 Route::middleware(['auth', 'role:Admin'])->group(function () {

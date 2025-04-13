@@ -45,6 +45,12 @@
           </a>
         </li>
       @endcanany
+      <li class="nav-item {{ Request::is('admin/bonuses*') ? 'active' : '' }}"> 
+        <a class="nav-link" href="{{ route('admin.bonuses.index') }}">
+            <i class="menu-icon mdi mdi-checkbox-blank-circle-outline"></i>
+            <span class="menu-title">Bonus</span>
+        </a>
+      </li>
         @canany(['create-subtask', 'edit-subtask', 'delete-subtask'])
           <li class="nav-item {{ Request::is('admin.task_assignments*') ? 'active' : '' }}"> 
             <a class="nav-link" href="{{ route('admin.task_assignments.index') }}">

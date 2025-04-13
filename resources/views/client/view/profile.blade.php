@@ -82,6 +82,21 @@ button:hover {
 <div class="row">
     <div class="col-md-6"><div class="form-section-wrapper">
         <h6>Parolni yangilash</h6>
+            
+        <!-- Success or error message display -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('profile.update') }}">
             @csrf
             <label>Email manzilingizni kiriting:</label>
@@ -109,7 +124,7 @@ button:hover {
           </div>
           <div class="highlighted-project-info">
             <span>📁</span>
-            <span>Current Project: {{ auth()->user()->project->name }}</span>
+            <span>Current Project: {{ auth()->user()->project->name ?? 'Loyiha biriktirilmagan' }}</span>
           </div>
         </div></div>
 </div>

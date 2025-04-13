@@ -45,9 +45,5 @@
         
             <button type="submit" class="btn btn-primary">Filtrlash</button>
         </form>
-        
-        
-        
-        
     </div>
 </nav>

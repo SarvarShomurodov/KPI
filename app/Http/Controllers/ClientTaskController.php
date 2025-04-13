@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Bonus;
 use App\Models\SubTask;
 use Illuminate\Http\Request;
 use App\Models\TaskAssignment;
@@ -82,21 +83,26 @@ class ClientTaskController extends Controller
     {
         $from = $request->input('from_date');
         $to = $request->input('to_date');
-
+    
         $tasks = Task::all();
         $staffUsers = User::all();
-
-        $query = TaskAssignment::with('subtask.task');
-
+    
+        $query = TaskAssignment::with('subtask.task'); // Bonus modelini ishlatish uchun qo‘shimcha o‘zgarishlar
+    
         if ($from && $to) {
             $query->whereBetween('addDate', [$from, $to]);
         }
-
+    
         $assignments = $query->get()
             ->groupBy('user_id')
             ->map(function ($assignments) {
+                $user = $assignments->first()->user; // Birinchi taskga asoslanib userni olish
+                $userBonuses = Bonus::where('user_id', $user->id)->get(); // Foydalanuvchi bonuslarini olish
+    
                 return [
                     'total_rating' => $assignments->sum('rating'),
+                    'bonus' => $userBonuses->sum('bonus'), // Bonus modelidan bonuslarni olish
+                    'total_with_bonus' => $assignments->sum('rating') + $userBonuses->sum('bonus'), // Bonusni qo‘shish
                     'tasks' => $assignments->map(function ($a) {
                         return [
                             'task_id' => $a->subtask->task->id ?? null,
@@ -106,9 +112,10 @@ class ClientTaskController extends Controller
                     }),
                 ];
             });
-
+    
         return view('client.swod.swod', compact('tasks', 'staffUsers', 'assignments', 'from', 'to'));
     }
+    
 
 
     public function grafik(Request $request)
@@ -223,7 +230,7 @@ class ClientTaskController extends Controller
 {
     $user = User::findOrFail($id);
 
-    // Barcha foydalanuvchilar KPI larini oylab olib kelamiz, eng kattasini topamiz (maximum KPI)
+    // Barcha foydalanuvchilarning KPI qiymatlari
     $allAssignments = TaskAssignment::with('subtask.task')
         ->get()
         ->groupBy(function ($item) {
@@ -239,22 +246,30 @@ class ClientTaskController extends Controller
             ->max();
     }
 
-    // Faqat tanlangan user uchun KPI lar
+    // Tanlangan user KPI larini olib kelamiz
     $userAssignments = TaskAssignment::with('subtask.task')
         ->where('user_id', $id)
         ->get()
         ->groupBy(function ($item) {
             return Carbon::parse($item->addDate)->format('Y-m');
         })
-        ->map(function ($items, $month) use ($monthlyMaxRatings) {
+        ->map(function ($items, $month) use ($monthlyMaxRatings, $id) {
             $total_rating = $items->sum('rating');
-            $bonus = 0;
+
+            // Shu oy uchun bonusni `bonuses` jadvalidan olib kelamiz
+            $bonus = Bonus::where('user_id', $id)
+                ->whereMonth('created_at', '=', Carbon::parse($month)->month)
+                ->whereYear('created_at', '=', Carbon::parse($month)->year)
+                ->sum('bonus');
+
             $totalWithBonus = $total_rating + $bonus;
+
             $maxTotalRating = $monthlyMaxRatings[$month] ?? 0;
-            $kpi = $maxTotalRating > 0 ? round(($totalWithBonus / $maxTotalRating) * 100, 2) : 0;
+            $kpi = $maxTotalRating > 0 ? round(min(($totalWithBonus / $maxTotalRating) * 100, 100), 2) : 0;
 
             return [
                 'total_rating' => $total_rating,
+                'bonus' => $bonus,
                 'kpi' => $kpi,
                 'tasks' => $items->map(function ($a) {
                     return [
@@ -268,5 +283,6 @@ class ClientTaskController extends Controller
 
     return view('client.tasks.grafikstaff', compact('user', 'userAssignments'));
 }
+
     
 }
